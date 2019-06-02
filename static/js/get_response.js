@@ -1,6 +1,6 @@
-var input = $("#question-input");
+var htmlInput = $("#question-input");
 
-input.on("keypress", function (e) {
+htmlInput.on("keypress", function (e) {
 	if (e.which === 13) { // si touche est égal à ENTER
 
 		$.ajax({
@@ -9,17 +9,18 @@ input.on("keypress", function (e) {
 			dataType: "json",
 			success: function (data) {
 
-				var yesNo = tranlateYesNo(data.answer);
-				var text = $("<div class='response-text'>" + yesNo + "</div>");
+				var yesNo = data.answer;
+				var ouiNon = tranlateYesNo(yesNo);
+				var htmlOuiNon = $("<div class='response-text'>" + ouiNon + "</div>");
 
-				var response = $("#response");
+				var htmlResponse = $("#response");
 
-				response.empty();
+				htmlResponse.empty();
 
-				response.css({
+				htmlResponse.css({
 					"background-image": "url('" + data.image + "')"
 				});
-				response.append(text);
+				htmlResponse.append(htmlOuiNon);
 			},
 			error: function (request, error) {
 				alert("Request: " + JSON.stringify(request));
